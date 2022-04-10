@@ -11,4 +11,8 @@
 - I first prepared the dataset from the Kaggle Fake or real csv file.
 - I built a sequential model using tensorflow/keras, with a single layer LSTM.
 - The training time for 1 epoch on an 80-20 split, is about 22 min.
-- Note that this is a first version. 
+- Note that this is a first version.
+
+## Rick: Uploaded second version of LSTM.
+- This time I used a Rivanna cluster of 2 GPUs. Training took about 3 min/epoch.
+- Ran for 10 epochs.
