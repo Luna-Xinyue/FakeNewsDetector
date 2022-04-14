@@ -17,5 +17,5 @@
 - This time I used a Rivanna cluster of 2 GPUs. Training took about 3 min/epoch.
 - Ran for 10 epochs.
 ## Rick: To Do:
-- Try with one-hot labels and 2 output units.
-- Grid Search optimization
+- [ ] Try with one-hot labels and 2 output units.
+- [ ] Grid Search optimization
