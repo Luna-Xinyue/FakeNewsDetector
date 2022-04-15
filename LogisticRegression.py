@@ -9,49 +9,64 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
+import nltk
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from sklearn.feature_extraction.text import TfidfVectorizer
-import nltk
+
+def pre_processing(dataset):
+    #Stop Words Removal and stemmer
+    ps = PorterStemmer()
+    stopwords = nltk.corpus.stopwords.words('english')
+    tokens_after_sw_and_ps = []
+    preprocessed_dataset = []
+    tokens_after_sw = []
+    text_tokens = []
+    for i in range(dataset_title.size):
+        tokens_after_sw_and_ps.clear()
+        tokens_after_sw.clear()
+        text_tokens.clear()
+        text_tokens = word_tokenize(dataset[i])
+        tokens_after_sw = [word for word in text_tokens if not word in stopwords]
+        for w in tokens_after_sw:
+            tokens_after_sw_and_ps.append(ps.stem(w))
+        preprocessed_dataset.append((" ").join(tokens_after_sw_and_ps))
+    return preprocessed_dataset
+
+def fit_vectorizer(data_set, vec_type="binary", max_features = 1500):
+    output = []
+    if "binary" in vec_type:
+        cv = CountVectorizer(binary=True, max_df=0.95, max_features = max_features)
+        output = cv.fit_transform(data_set).toarray()
+        
+    if "counts" in vec_type:
+        cv = CountVectorizer(binary=False, max_df=0.95, max_features = max_features)
+        output = cv.fit_transform(data_set).toarray()
+
+    elif "tfidf" in vec_type:
+        tfidf = TfidfVectorizer(use_idf=True)
+        output = tfidf.fit_transform(data_set).toarray()
+    return output
+
 
 # Read data
 dataset = pd.read_csv('../input/fake-or-real-news/fake_or_real_news.csv')
 dataset_title = dataset['title']
 
-# pre-processing
-#Stop Words Removal and stemmer
-ps = PorterStemmer()
-stopwords = nltk.corpus.stopwords.words('english')
-# print(dataset_title.head())
+preprocessed_dataset = pre_processing(dataset_title)
 
-tokens_without_sw_stem = []
-dataset_title_after = []
-tokens_without_sw = []
-text_tokens = []
-for i in range(dataset_title.size):
-    tokens_without_sw_stem.clear()
-    tokens_without_sw.clear()
-    text_tokens.clear()
-    text_tokens = word_tokenize(dataset_title[i])
-    tokens_without_sw = [word for word in text_tokens if not word in stopwords]
-    for w in tokens_without_sw:
-        tokens_without_sw_stem.append(ps.stem(w))
-    dataset_title_after.append((" ").join(tokens_without_sw_stem))
+X_data = fit_vectorizer(preprocessed_dataset, vec_type="tfidf", max_features = 1500)
 
-# print(dataset_title.head())
-# Binarize the dataset
-cv = CountVectorizer(max_features = 1500)
-X_title = cv.fit_transform(dataset_title_after).toarray()
-
-X = preprocessing.normalize(X_title, norm='l2', axis=1, copy=True, return_norm=False)
+# X = preprocessing.normalize(X_data, norm='l2', axis=1, copy=True, return_norm=False)
 
 le = preprocessing.LabelEncoder()
 le.fit(dataset['label'])
 y_binary = le.transform(dataset['label'])
 
 # Dataset split (0.7/0.3)
-X_train, X_test, y_train, y_test = train_test_split(X_title, y_binary, test_size = 0.3, random_state = 0)
+X_train, X_test, y_train, y_test = train_test_split(X_data, y_binary, test_size = 0.2, random_state = 0)
 
 # Train the logistic regression classifier
 classifier = LogisticRegression(penalty='l2', fit_intercept=True, C=1)
