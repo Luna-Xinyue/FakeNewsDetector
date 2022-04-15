@@ -20,3 +20,8 @@
 - [ ] Try Early Stopping
 - [ ] Try with one-hot labels and 2 output units.
 - [ ] Grid Search optimization
+
+## Mohamed: Uploading Grid Search for Logistic Regression
+  - Built on Luna's Logistic Regression code
+  - Using the normalized input
+  - Grid Search on values of C and solver, with penalty set to 'l2'
