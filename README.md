@@ -29,5 +29,5 @@
   - Add Stop Word Removal 
   - Add Porter Stemmer
 ## Morteza: Add two modules, TF-IDF, and "counts" vectorizer
-  -add two modules: pre-processing and fit_vectorizer
-  -dd tf-idf and counts vectorizers
+  - Add two modules: pre-processing and fit_vectorizer
+  - Add tf-idf and counts vectorizers
