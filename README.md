@@ -25,3 +25,6 @@
   - Built on Luna's Logistic Regression code
   - Using the normalized input
   - Grid Search on values of C and solver, with penalty set to 'l2'
+## Morteza: Adding Pre-processing to the Logistic CRegression Code
+  - Add Stop Word Removal 
+  - Add Stemmer
