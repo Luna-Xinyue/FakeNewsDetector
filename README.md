@@ -25,6 +25,9 @@
   - Built on Luna's Logistic Regression code
   - Using the normalized input
   - Grid Search on values of C and solver, with penalty set to 'l2'
-## Morteza: Adding Pre-processing to the Logistic Regression Code
+## Morteza: Add Pre-processing to the Logistic Regression Code
   - Add Stop Word Removal 
   - Add Porter Stemmer
+## Morteza: Add two modules, TF-IDF, and "counts" vectorizer
+  -add two modules: pre-processing and fit_vectorizer
+  -dd tf-idf and counts vectorizers
