@@ -31,3 +31,7 @@
 ## Morteza: Add two modules, TF-IDF, and "counts" vectorizer
   - Add two modules: pre-processing and fit_vectorizer
   - Add tf-idf and counts vectorizers
+
+## Mohamed: 
+  - Updated LogisticRegression_Grid.py
+  - Combines Logistic Regression + Cropping + Pre-Processing +Grid Search

@@ -20,31 +20,82 @@ from sklearn.metrics import confusion_matrix
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
 
+import nltk
+from sklearn.feature_extraction.text import TfidfVectorizer
+from nltk.stem import PorterStemmer
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+nltk.download('stopwords')
+nltk.download('punkt')
+
 from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.model_selection import GridSearchCV
+
+def pre_processing(dataset):
+    #Stop Words Removal and stemmer
+    ps = PorterStemmer()
+    stopwords = nltk.corpus.stopwords.words('english')
+    tokens_after_sw_and_ps = []
+    preprocessed_dataset = []
+    tokens_after_sw = []
+    text_tokens = []
+    for i in range(dataset.size):
+        tokens_after_sw_and_ps.clear()
+        tokens_after_sw.clear()
+        text_tokens.clear()
+        text_tokens = word_tokenize(dataset[i])
+        tokens_after_sw = [word for word in text_tokens if not word in stopwords]
+        for w in tokens_after_sw:
+            tokens_after_sw_and_ps.append(ps.stem(w))
+        preprocessed_dataset.append((" ").join(tokens_after_sw_and_ps))
+    return preprocessed_dataset
+
+def fit_vectorizer(data_set, vec_type="binary", max_features = 1500):
+    output = []
+    if "binary" in vec_type:
+        cv = CountVectorizer(binary=True, max_df=0.95, max_features = max_features)
+        output = cv.fit_transform(data_set).toarray()
+        
+    if "counts" in vec_type:
+        cv = CountVectorizer(binary=False, max_df=0.95, max_features = max_features)
+        output = cv.fit_transform(data_set).toarray()
+
+    elif "tfidf" in vec_type:
+        tfidf = TfidfVectorizer(use_idf=True)
+        output = tfidf.fit_transform(data_set).toarray()
+    return output
+
+def crop(raw_text):
+    raw_text_split = raw_text.split('.')
+    escapes = ''.join([chr(char) for char in range(1, 32)])
+    translator = str.maketrans('', '', escapes)
+    raw_text_split_no_escape = []
+    for part in raw_text_split[0:20]:
+        part_clean = part.translate(translator)
+        raw_text_split_no_escape.append(part_clean)
+    cropped_text = ' '.join(raw_text_split_no_escape)
+    return cropped_text
+
 
 # Read data
 dataset = pd.read_csv("C:/Users/mgkeb/Documents/jupyter_notebooks/final_project/fake_or_real_news.csv/fake_or_real_news.csv")
 dataset['title_text'] = dataset['title'] + ' ' + dataset['text']
 print(dataset.head(10))
 
+dataset['cropped'] = dataset.apply(lambda row: crop(row['title_text']), axis=1)
+print(dataset.head(10))
 
-# Binarize the dataset
-cv = CountVectorizer(max_features = 1500)                           # Convert a collection of text documents to a matrix of token counts (the occurences of tokens in each document)
-X_title = cv.fit_transform(dataset['title_text']).toarray()         # Learn the vocabulary dictionary and return document-term matrix
-print(X_title)
+preprocessed_dataset = pre_processing(dataset['cropped'])
+# X_data = fit_vectorizer(preprocessed_dataset, vec_type="tfidf", max_features = 1500)
 
-X = preprocessing.normalize(X_title, norm='l2', axis=1, copy=True, return_norm=False)   # Scale input vecotrs individually to unit norm (vector length)
+cv = CountVectorizer(max_features = 1500)       # Convert a collection of text documents to a matrix of token counts (the occurences of tokens in each document)
+preprocessed_dataset_vectorized = cv.fit_transform(preprocessed_dataset).toarray()      # Learn the vocabulary dictionary and return document-term matrix
+X_data = preprocessing.normalize(preprocessed_dataset_vectorized, norm='l2', axis=1, copy=True, return_norm=False)
 
 le = preprocessing.LabelEncoder() 
 le.fit(dataset['label']) 
 y_binary = le.transform(dataset['label'])
 
-# Dataset split (0.7/0.3)
-# X_train, X_test, y_train, y_test = train_test_split(X_title, y_binary, test_size = 0.3, random_state = 0)
-
-# Train the logistic regression classifier
-# classifier = LogisticRegression(penalty='l2', fit_intercept=True, C=1, max_iter=1000)
 classfier = LogisticRegression(max_iter=10000)
 
 penalty = ['l2']
@@ -53,11 +104,9 @@ solver = ['newton-cg','lbfgs','liblinear','sag','saga']
 
 grid = dict(penalty=penalty,C=C,solver=solver)
 cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-
 grid_search = GridSearchCV(estimator=classfier, param_grid=grid, n_jobs=-1, cv=cv, scoring='accuracy', error_score=0, verbose=3)
 
-# classifier.fit(X_train, y_train)
-grid_result = grid_search.fit(X, y_binary)
+grid_result = grid_search.fit(X_data, y_binary)
 
 print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))
 means = grid_result.cv_results_['mean_test_score']
@@ -65,19 +114,3 @@ stds = grid_result.cv_results_['std_test_score']
 params = grid_result.cv_results_['params']
 for mean, stdev, param in zip(means, stds, params):
     print("%f (%f) with: %r" % (mean, stdev, param))
-
-# Using the classifier to predict and evaluate the classfier
-# y_pred = classifier.predict(X_test)
-# print(len(y_pred))
-# cm = confusion_matrix(y_test, y_pred)
-# TP = cm[1][1]
-# TN = cm[0][0]
-# FP = cm[1][0]
-# FN = cm[0][1]
-
-# Accuracy = (TP + TN) / (TP + TN + FP + FN) 
-# Precision = TP / (TP + FP)
-# Recall = TP / (TP + FN)
-# F1_Score = 2 * Precision * Recall / (Precision + Recall)
-
-# print(Accuracy, Precision, Recall, F1_Score)
