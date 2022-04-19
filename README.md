@@ -17,9 +17,10 @@
 - This time I used a Rivanna cluster of 2 GPUs. Training took about 3 min/epoch.
 - Ran for 10 epochs.
 ## Rick: To Do:
-- [ ] Try Early Stopping
-- [ ] Try with one-hot labels and 2 output units.
-- [ ] Grid Search optimization
+- [x] Try Early Stopping
+- [x] ~~Try with one-hot labels and 2 output units.~~ Not required.
+- [ ] Grid Search optimization for LSTM
+- [ ] Use some preprocessing for LSTM
 
 ## Mohamed: Uploading Grid Search for Logistic Regression
   - Built on Luna's Logistic Regression code
