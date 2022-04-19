@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1rUxpbS_JkpaCOKpsLJSv8MytUnXWddis
 """
 
-# Logistic regression 
+# Logistic regression
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,66 +19,14 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
+from preprocess_utils import pre_processing, fit_vectorizer, crop
 
-import nltk
-from sklearn.feature_extraction.text import TfidfVectorizer
-from nltk.stem import PorterStemmer
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-nltk.download('stopwords')
-nltk.download('punkt')
 
 from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.model_selection import GridSearchCV
 
-def pre_processing(dataset):
-    #Stop Words Removal and stemmer
-    ps = PorterStemmer()
-    stopwords = nltk.corpus.stopwords.words('english')
-    tokens_after_sw_and_ps = []
-    preprocessed_dataset = []
-    tokens_after_sw = []
-    text_tokens = []
-    for i in range(dataset.size):
-        tokens_after_sw_and_ps.clear()
-        tokens_after_sw.clear()
-        text_tokens.clear()
-        text_tokens = word_tokenize(dataset[i])
-        tokens_after_sw = [word for word in text_tokens if not word in stopwords]
-        for w in tokens_after_sw:
-            tokens_after_sw_and_ps.append(ps.stem(w))
-        preprocessed_dataset.append((" ").join(tokens_after_sw_and_ps))
-    return preprocessed_dataset
-
-def fit_vectorizer(data_set, vec_type="binary", max_features = 1500):
-    output = []
-    if "binary" in vec_type:
-        cv = CountVectorizer(binary=True, max_df=0.95, max_features = max_features)
-        output = cv.fit_transform(data_set).toarray()
-        
-    if "counts" in vec_type:
-        cv = CountVectorizer(binary=False, max_df=0.95, max_features = max_features)
-        output = cv.fit_transform(data_set).toarray()
-
-    elif "tfidf" in vec_type:
-        tfidf = TfidfVectorizer(use_idf=True)
-        output = tfidf.fit_transform(data_set).toarray()
-    return output
-
-def crop(raw_text):
-    raw_text_split = raw_text.split('.')
-    escapes = ''.join([chr(char) for char in range(1, 32)])
-    translator = str.maketrans('', '', escapes)
-    raw_text_split_no_escape = []
-    for part in raw_text_split[0:20]:
-        part_clean = part.translate(translator)
-        raw_text_split_no_escape.append(part_clean)
-    cropped_text = ' '.join(raw_text_split_no_escape)
-    return cropped_text
-
-
 # Read data
-dataset = pd.read_csv("C:/Users/mgkeb/Documents/jupyter_notebooks/final_project/fake_or_real_news.csv/fake_or_real_news.csv")
+dataset = pd.read_csv("./fake_or_real_news.csv")
 dataset['title_text'] = dataset['title'] + ' ' + dataset['text']
 print(dataset.head(10))
 
@@ -92,8 +40,8 @@ cv = CountVectorizer(max_features = 1500)       # Convert a collection of text d
 preprocessed_dataset_vectorized = cv.fit_transform(preprocessed_dataset).toarray()      # Learn the vocabulary dictionary and return document-term matrix
 X_data = preprocessing.normalize(preprocessed_dataset_vectorized, norm='l2', axis=1, copy=True, return_norm=False)
 
-le = preprocessing.LabelEncoder() 
-le.fit(dataset['label']) 
+le = preprocessing.LabelEncoder()
+le.fit(dataset['label'])
 y_binary = le.transform(dataset['label'])
 
 classfier = LogisticRegression(max_iter=10000)
