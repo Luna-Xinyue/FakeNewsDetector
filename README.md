@@ -1,6 +1,4 @@
 # FakeNewsDetector
-### Important TODO:
-- [ ] Directly fetch fake_or_real_news.csv from Kaggle in the script.
 
 ## Luna: Uploaded first version of logistic regression.
   - This demo shows that this is a plausible method. 
