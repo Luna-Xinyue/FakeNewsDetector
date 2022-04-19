@@ -1,0 +1,9 @@
+name: lstm
+dependencies:
+ - python=3.9
+ - numpy
+ - pandas
+ - keras
+ - tensorflow-gpu=2.8.0
+ - scikit-learn
+ - matplotlib
