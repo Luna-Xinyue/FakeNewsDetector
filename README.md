@@ -36,3 +36,6 @@
 ## Mohamed: 
   - Updated LogisticRegression_Grid.py
   - Combines Logistic Regression + Cropping + Pre-Processing +Grid Search
+
+## Rick: Experiment 1 Vocabulary sizes
+  - Added code, outputs, plots.
