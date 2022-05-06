@@ -38,7 +38,7 @@ def fit_vectorizer(data_set, vec_type="binary", max_features = 1500):
         output = cv.fit_transform(data_set).toarray()
 
     elif "tfidf" in vec_type:
-        tfidf = TfidfVectorizer(use_idf=True)
+        tfidf = TfidfVectorizer(use_idf=True, max_df = 0.95, max_features = max_features)
         output = tfidf.fit_transform(data_set).toarray()
     return output
 

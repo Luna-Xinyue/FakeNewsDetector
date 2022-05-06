@@ -2,6 +2,7 @@ import pandas as pd
 import preprocess_utils as pu
 from sklearn import preprocessing as sklearnpp
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
 
 def read_dataset(pathstring="./fake_or_real_news.csv"):
     dataset = pd.read_csv(pathstring)
@@ -9,7 +10,6 @@ def read_dataset(pathstring="./fake_or_real_news.csv"):
     return dataset
 
 def preprocess_data(dataset, vocab_size = 1500):
-    #cropped
     preprocessed_ds = pu.pre_processing(dataset['title_text'])
     X_data = pu.fit_vectorizer(preprocessed_ds, vec_type='tfidf', max_features = vocab_size)
     le = sklearnpp.LabelEncoder()
