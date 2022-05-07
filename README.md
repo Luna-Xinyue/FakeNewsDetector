@@ -1,11 +1,8 @@
 # FakeNewsDetector
 
-## Luna: Uploaded first version of logistic regression.
+## Luna: Uploaded logistic regression.
   - This demo shows that this is a plausible method. 
   - I have created a code structure can be used later
-### Todo List
-  - [ ] re-structure the code, add input function to using different text as training set
-  - [ ] Text pre-process
 
 ## Rick: Uploaded first version of LSTM.
 - I first prepared the dataset from the Kaggle Fake or real csv file.
@@ -45,3 +42,8 @@
   - Added description markdown to LSTM notebook.
   - General cleanup of LSTM code.
   - Used 20 core GPU in Rivanna
+
+## Luna
+  - Add word cloud
+  ![TrueWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-truewords.jpeg)
+  ![FalseWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-falsewords.jpeg)
