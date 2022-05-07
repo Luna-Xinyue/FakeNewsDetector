@@ -19,8 +19,8 @@
 ## Rick: To Do:
 - [x] Try Early Stopping
 - [x] ~~Try with one-hot labels and 2 output units.~~ Not required.
-- [ ] Grid Search optimization for LSTM
-- [ ] Use some preprocessing for LSTM
+- [x] ~~Grid Search optimization for LSTM. ~~Too slow
+- [x] Use some preprocessing for LSTM
 
 ## Mohamed: Uploading Grid Search for Logistic Regression
   - Built on Luna's Logistic Regression code
@@ -44,3 +44,4 @@
   - Saved outputs and plots
   - Added description markdown to LSTM notebook.
   - General cleanup of LSTM code.
+  - Used 20 core GPU in Rivanna
