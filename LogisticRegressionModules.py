@@ -77,8 +77,8 @@ def crop(raw_text, perc):
 
 def run_default_logistic_regression(X_data, y_binary):
     X_train, X_test, y_train, y_test = train_test_split(X_data, y_binary, test_size = 0.2, random_state = 0)
-    
-    clf = LogisticRegression(max_iter=10000)
+
+    clf = LogisticRegression(max_iter=10000, random_state=10)
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
     
@@ -88,11 +88,11 @@ def run_default_logistic_regression(X_data, y_binary):
     FP = cm[1][0]
     FN = cm[0][1]
 
-    Accuracy = (TP + TN) / (TP + TN + FP + FN) 
+    Accuracy = (TP + TN) / (TP + TN + FP + FN)
     Precision = TP / (TP + FP)
     Recall = TP / (TP + FN)
     F1_Score = 2 * Precision * Recall / (Precision + Recall)
 
-    print('Accuracy:' + str(Accuracy) + ', Precision:' + str(Precision) 
+    print('Accuracy:' + str(Accuracy) + ', Precision:' + str(Precision)
           + ', Recall:' + str(Recall)+ ', F1_Score:' + str(F1_Score))
     return Accuracy
