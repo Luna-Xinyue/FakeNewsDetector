@@ -39,3 +39,8 @@
 
 ## Rick: Experiment 1 Vocabulary sizes
   - Added code, outputs, plots.
+## Rick: LSTM
+  - Added preprocessing(stopwords and stemming)
+  - Saved outputs and plots
+  - Added description markdown to LSTM notebook.
+  - General cleanup of LSTM code.
