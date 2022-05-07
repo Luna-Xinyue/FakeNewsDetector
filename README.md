@@ -45,9 +45,11 @@
 
 ## Luna
   - Add word cloud (Yellow for false, green for true)
-  - without pre-processing
-  ![TrueWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-truewords.jpeg)
-  ![FalseWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-falsewords.jpeg)
   - with pre-processing
-  ![TrueWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-truewords_v2.jpeg)
-  ![FalseWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-falsewords_v2.jpeg)
+  ![TrueWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-truewords_v3.jpeg)
+  ![FalseWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-falsewords_v3.jpeg)
+
+## Mohamed
+  - Added LogisticRegression.ipynb - Main notebook
+  - Added LogisticRegressionModules.py - All preprocessing modules
+  - Added Interpret_Negative_Result.csv and Interpret_Positive_Result.csv 
