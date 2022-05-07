@@ -44,6 +44,10 @@
   - Used 20 core GPU in Rivanna
 
 ## Luna
-  - Add word cloud
+  - Add word cloud (Yellow for false, green for true)
+  - without pre-processing
   ![TrueWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-truewords.jpeg)
   ![FalseWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-falsewords.jpeg)
+  - with pre-processing
+  ![TrueWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-truewords_v2.jpeg)
+  ![FalseWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-falsewords_v2.jpeg)
