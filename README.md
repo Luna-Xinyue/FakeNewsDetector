@@ -1,55 +1,19 @@
-# FakeNewsDetector
+## Description of the files
+1. __LogisticRegression.ipynb__ : Main Jupyter Notebook containing all the experiments with Logistic regression.
+2. __LogisticRegressionModules__ : Contains all the utility and text pre-processing methods.
+3. __LSTM.ipynb__ : Main Jupyter notebook containing text classification using a single layer LSTM neural network.
+4. __data/__: Contains the csv file of the [Fake or Real news dataset](https://www.kaggle.com/datasets/jillanisofttech/fake-or-real-news?resource=download) from Kaggle.
+5. __plots/__: Contains the saved plots from the experiments.
+6. __compare_LSTMS.py__: Prints out the performance numbers of the LSTM classifier with and without preprocessing(stop-word removal and stemming).
+7. __scratch/__: Contains older code now not needed.
+8. __Interpret_Negative_Result.csv__:
+9. __Interpret_Positive_Result.csv__:
+10. __interpret_test_v2.csv__:
 
-## Luna: Uploaded logistic regression.
-  - This demo shows that this is a plausible method. 
-  - I have created a code structure can be used later
+## Reproducing the experiments
+1. Open __LogisticRegression.ipynb__ and run all cells (the results should be reproducible).
+2. Open __LSTM.ipynb__. Due to GPU-related randomness, the training of the LSTM will not be reproducible. Hence the performance numbers will change.
 
-## Rick: Uploaded first version of LSTM.
-- I first prepared the dataset from the Kaggle Fake or real csv file.
-- I built a sequential model using tensorflow/keras, with a single layer LSTM.
-- The training time for 1 epoch on an 80-20 split, is about 22 min.
-- Note that this is a first version.
-
-## Rick: Uploaded second version of LSTM.
-- This time I used a Rivanna cluster of 2 GPUs. Training took about 3 min/epoch.
-- Ran for 10 epochs.
-## Rick: To Do:
-- [x] Try Early Stopping
-- [x] ~~Try with one-hot labels and 2 output units.~~ Not required.
-- [x] ~~Grid Search optimization for LSTM. ~~Too slow
-- [x] Use some preprocessing for LSTM
-
-## Mohamed: Uploading Grid Search for Logistic Regression
-  - Built on Luna's Logistic Regression code
-  - Using the normalized input
-  - Grid Search on values of C and solver, with penalty set to 'l2'
-## Morteza: Add Pre-processing to the Logistic Regression Code
-  - Add Stop Word Removal 
-  - Add Porter Stemmer
-## Morteza: Add two modules, TF-IDF, and "counts" vectorizer
-  - Add two modules: pre-processing and fit_vectorizer
-  - Add tf-idf and counts vectorizers
-
-## Mohamed: 
-  - Updated LogisticRegression_Grid.py
-  - Combines Logistic Regression + Cropping + Pre-Processing +Grid Search
-
-## Rick: Experiment 1 Vocabulary sizes
-  - Added code, outputs, plots.
-## Rick: LSTM
-  - Added preprocessing(stopwords and stemming)
-  - Saved outputs and plots
-  - Added description markdown to LSTM notebook.
-  - General cleanup of LSTM code.
-  - Used 20 core GPU in Rivanna
-
-## Luna
-  - Add word cloud (Yellow for false, green for true)
-  - with pre-processing
-  ![TrueWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-truewords_v3.jpeg)
-  ![FalseWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-falsewords_v3.jpeg)
-
-## Mohamed
-  - Added LogisticRegression.ipynb - Main notebook
-  - Added LogisticRegressionModules.py - All preprocessing modules
-  - Added Interpret_Negative_Result.csv and Interpret_Positive_Result.csv 
+## System
+1. For __LogisticRegression.ipynb__, we used our personal computers.
+2. For __LSTM.ipynb__, we used Rivanna HPC with 30 core NVIDIA GPU with 6GB RAM.
