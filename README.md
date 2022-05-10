@@ -17,3 +17,9 @@
 ## System
 1. For __LogisticRegression.ipynb__, we used our personal computers.
 2. For __LSTM.ipynb__, we used Rivanna HPC with 30 core NVIDIA GPU with 6GB RAM.
+
+## Interpreted Results
+1. Words that contributed to the Positive Class (Real News):
+  ![TrueWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-positive.jpg)
+2. Words that contributed to the Negative Class (Fake News):
+  ![FalseWords](https://github.com/Luna-Xinyue/FakeNewsDetector/blob/main/wordcloud-negative.jpg)
