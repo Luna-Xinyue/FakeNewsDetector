@@ -11,8 +11,9 @@
 10. __interpret_test_v2.csv__:
 
 ## Reproducing the experiments
-1. Open __LogisticRegression.ipynb__ and run all cells (the results should be reproducible).
-2. Open __LSTM.ipynb__. Due to GPU-related randomness, the training of the LSTM will not be reproducible. Hence the performance numbers will change.
+1. Download the news article datafile from [Kaggle](https://www.kaggle.com/datasets/jillanisofttech/fake-or-real-news?resource=download) and put it in _data/_ folder.
+2. Open __LogisticRegression.ipynb__ and run all cells (the results should be reproducible).
+3. Open __LSTM.ipynb__. Due to GPU-related randomness, the training of the LSTM will not be reproducible. Hence the performance numbers will change.
 
 ## System
 1. For __LogisticRegression.ipynb__, we used our personal computers.
